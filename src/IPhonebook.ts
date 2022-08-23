@@ -1,6 +1,6 @@
 import Contact from "./Contact";
 
-interface IPhonebook {
+interface IPhonebook extends Iterable<Contact | undefined> {
   size: number;
   add(contact: Contact): number;
   addPhone(id: number, phone: string): void;

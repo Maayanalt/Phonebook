@@ -6,10 +6,15 @@ class Phonebook {
         this._index = 0;
         this.contactsSorted = [];
     }
+    [Symbol.iterator]() {
+        this.contactsSorted = [...this.contacts].sort((a, b) => a.name < b.name ? -1 : 1);
+        return this;
+    }
     next() {
         if (this._index === this.contactsSorted.length) {
             return {
                 done: true,
+                value: undefined,
             };
         }
         return {
@@ -17,10 +22,12 @@ class Phonebook {
             value: this.contactsSorted[this._index++],
         };
     }
-    [Symbol.iterator]() {
-        this.contactsSorted = [...this.contacts].sort((a, b) => a.name < b.name ? -1 : 1);
-        return this;
-    }
+    // [Symbol.iterator]() {
+    //   this.contactsSorted = [...this.contacts].sort((a, b) =>
+    //     a.name < b.name ? -1 : 1
+    //   );
+    //   return this;
+    // }
     get size() {
         return this.contacts.length;
     }
