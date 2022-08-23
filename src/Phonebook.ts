@@ -3,8 +3,32 @@ import IPhonebook from "./IPhonebook";
 
 class Phonebook implements IPhonebook {
   contacts: Contact[];
+  _index: number;
+  contactsSorted: Contact[];
+
   constructor() {
     this.contacts = [];
+    this._index = 0;
+    this.contactsSorted = [];
+  }
+
+  next() {
+    if (this._index === this.contactsSorted.length) {
+      return {
+        done: true,
+      };
+    }
+    return {
+      done: false,
+      value: this.contactsSorted[this._index++],
+    };
+  }
+
+  [Symbol.iterator]() {
+    this.contactsSorted = [...this.contacts].sort((a, b) =>
+      a.name < b.name ? -1 : 1
+    );
+    return this;
   }
 
   get size() {
