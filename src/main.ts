@@ -58,3 +58,7 @@ if (contactsWithSameName) {
 
 if (lastContact) yellowPages.remove(lastContact.id);
 console.log(yellowPages.size);
+
+for (const contact of yellowPages) {
+  console.log(contact);
+}
