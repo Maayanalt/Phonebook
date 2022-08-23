@@ -29,7 +29,9 @@ class Phonebook implements IPhonebook {
   get(name: string): Contact[] | undefined;
   get(prop: unknown): Contact | Contact[] | undefined {
     if (typeof prop === "number") {
-      return this.contacts.find((contact) => contact.id == prop);
+      for (const contact of this.contacts) {
+        if (contact.id == prop) return contact;
+      }
     }
     if (typeof prop === "string") {
       return this.contacts.filter((contact) => contact.name.includes(prop));
