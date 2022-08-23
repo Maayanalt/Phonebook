@@ -3,6 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class Phonebook {
     constructor() {
         this.contacts = [];
+        this._index = 0;
+        this.contactsSorted = [];
+    }
+    next() {
+        if (this._index === this.contactsSorted.length) {
+            return {
+                done: true,
+            };
+        }
+        return {
+            done: false,
+            value: this.contactsSorted[this._index++],
+        };
+    }
+    [Symbol.iterator]() {
+        this.contactsSorted = [...this.contacts].sort((a, b) => a.name < b.name ? -1 : 1);
+        return this;
     }
     get size() {
         return this.contacts.length;
@@ -21,7 +38,10 @@ class Phonebook {
     }
     get(prop) {
         if (typeof prop === "number") {
-            return this.contacts.find((contact) => contact.id == prop);
+            for (const contact of this.contacts) {
+                if (contact.id == prop)
+                    return contact;
+            }
         }
         if (typeof prop === "string") {
             return this.contacts.filter((contact) => contact.name.includes(prop));
