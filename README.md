@@ -31,3 +31,9 @@
 - add phone to existing contact
 - get contacts by name and add to them the same phone (Notice that adding a phone is done ONLY via addPhone!)
 - remove the last contact (of the previous contacts from #8) by id check the size is updated
+- Enable this:
+  ```
+  for(const contact of Phonebook){
+  //contacts will be delivered in alphabetical order
+  }
+  ```
